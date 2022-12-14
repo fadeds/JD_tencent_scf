@@ -78,7 +78,7 @@ var P00003 = '';
 var dfp = '';
 
 var $nobyda = nobyda();
-const $ = new Env('掘金-社区签到');
+const $ = new Env('爱奇艺签到-多账号-适配青龙');
 const notify = $.isNode() ? require('./sendNotify') : '';
 cookies.forEach(cookie=>{
     (async () => {
