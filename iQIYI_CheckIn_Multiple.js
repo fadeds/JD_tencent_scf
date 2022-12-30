@@ -41,7 +41,7 @@ var barkServer = ''; //Bark APP 通知服务端地址(默认官方)
  **********************
  [task_local]
  # 爱奇艺会员签到
- 0 9 * * * https://raw.githubusercontent.com/NobyDa/Script/master/iQIYI-DailyBonus/iQIYI.js
+ 0 6 * * * https://raw.githubusercontent.com/NobyDa/Script/master/iQIYI-DailyBonus/iQIYI.js
  [rewrite_local]
  # 获取Cookie
  ^https:\/\/passport\.iqiyi\.com\/apis\/user\/info\.action url script-request-header https://raw.githubusercontent.com/NobyDa/Script/master/iQIYI-DailyBonus/iQIYI.js
@@ -51,7 +51,7 @@ var barkServer = ''; //Bark APP 通知服务端地址(默认官方)
  Surge 4.2.0+ 脚本配置:
  **********************
  [Script]
- 爱奇艺签到 = type=cron,cronexp=0 9 * * *,timeout=120,script-path=https://raw.githubusercontent.com/NobyDa/Script/master/iQIYI-DailyBonus/iQIYI.js
+ 爱奇艺签到 = type=cron,cronexp=0 6 * * *,timeout=120,script-path=https://raw.githubusercontent.com/NobyDa/Script/master/iQIYI-DailyBonus/iQIYI.js
  爱奇艺获取Cookie = type=http-request,pattern=^https:\/\/passport\.iqiyi\.com\/apis\/user\/info\.action,script-path=https://raw.githubusercontent.com/NobyDa/Script/master/iQIYI-DailyBonus/iQIYI.js
  [MITM]
  hostname= passport.iqiyi.com
@@ -60,7 +60,7 @@ var barkServer = ''; //Bark APP 通知服务端地址(默认官方)
  ************************
  [Script]
  # 爱奇艺签到
- cron "0 9 * * *" script-path=https://raw.githubusercontent.com/NobyDa/Script/master/iQIYI-DailyBonus/iQIYI.js
+ cron "0 6 * * *" script-path=https://raw.githubusercontent.com/NobyDa/Script/master/iQIYI-DailyBonus/iQIYI.js
  # 获取Cookie
  http-request ^https:\/\/passport\.iqiyi\.com\/apis\/user\/info\.action script-path=https://raw.githubusercontent.com/NobyDa/Script/master/iQIYI-DailyBonus/iQIYI.js
  [Mitm]
