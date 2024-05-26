@@ -1,6 +1,6 @@
 /*
 爱奇艺会员签到脚本
-更新时间: 2022.2.7
+更新时间: 2024.5.26
 脚本兼容: QuantumultX, Surge4, Loon, JsBox, Node.js
 电报频道: @NobyDa
 问题反馈: @NobyDa_bot
@@ -97,24 +97,25 @@ cookies.forEach(cookie=>{
             let P00001 = cookie.match(/P00001=(.*?);/)[1];
             let P00003 = cookie.match(/P00003=(.*?);/)[1];
             let dfp = cookie.match(/__dfp=(.*?)@/)[1];
-            await Checkin(P00001,P00003,dfp);
-            await WebCheckin(P00001,P00003,dfp);
+            let qyid = cookie.match(/QC005=(.*?);/)[1];
+            await Checkin(P00001,P00003,dfp,qyid);
+            await WebCheckin(P00001,P00003,dfp,qyid);
             for (let i = 0; i < 3; i++){
-                const run = await Lottery(i,P00001,P00003,dfp);
+                const run = await Lottery(i,P00001,P00003,dfp,qyid);
                 if (run) {
                     await new Promise(r => setTimeout(r, 1000));
                 } else {
                     break
                 }
             }
-            await login(P00001,P00003,dfp);
-            const tasks = await getTaskList(P00001,P00003,dfp);
+            await login(P00001,P00003,dfp,qyid);
+            const tasks = await getTaskList(P00001,P00003,dfp,qyid);
             for (let i = 0; i < tasks.length; i++){
                 if (![1, 4].includes(tasks[i].status)) { //0：待领取 1：已完成 2：未开始 4：进行中
-                    await joinTask(tasks[i],P00001,P00003,dfp);
-                    await notifyTask(tasks[i],P00001,P00003,dfp);
+                    await joinTask(tasks[i],P00001,P00003,dfp,qyid);
+                    await notifyTask(tasks[i],P00001,P00003,dfp,qyid);
                     await new Promise(r => setTimeout(r, 1000));
-                    await getTaskRewards(tasks[i],P00001,P00003,dfp);
+                    await getTaskRewards(tasks[i],P00001,P00003,dfp,qyid);
                     console.log(`--------------------`)
                 }
             }
@@ -163,7 +164,7 @@ function login(P00001) {
     })
 }
 
-function Checkin(P00001,P00003,dfp) {
+function Checkin(P00001,P00003,dfp,qyid) {
     const timestamp = new Date().getTime();
     const stringRandom = (length) => {
         var rdm62, ret = '';
@@ -179,20 +180,41 @@ function Checkin(P00001,P00003,dfp) {
             agentversion: "1.0",
             appKey: "basic_pcw",
             authCookie: P00001,
-            qyid: md5(stringRandom(16).toString()),
+            qyid,
             task_code: "natural_month_sign",
             timestamp: timestamp,
             typeCode: "point",
             userId: P00003,
+            // "agenttype": 20,
+            // "agentversion": "15.4.6",
+            // "appKey": "lequ_rn",
+            // "appver": "15.4.6",
+            // "authCookie": p00001,
+            // "qyid": qyid,
+            // "srcplatform": 20,
+            // "task_code": "natural_month_sign",
+            // "timestamp": time_stamp,
+            // "userId": p00003,
         };
         const post_date = {
             "natural_month_sign": {
                 "agentType": "1",
                 "agentversion": "1",
                 "authCookie": P00001,
-                "qyid": md5(stringRandom(16).toString()),
+                qyid,
                 "taskCode": "iQIYI_mofhr",
-                "verticalCode": "iQIYI"
+                "verticalCode": "iQIYI",
+                "dfp": dfp,
+                "signFrom": 1,
+
+                
+                // "verticalCode": "iQIYI",
+                // "taskCode": "iQIYI_mofhr",
+                // "authCookie": p00001,
+                // "qyid": qyid,
+                // "agentType": 20,
+                // "agentVersion": "15.4.6",
+                
             }
         };
         const sign = k("UKobMjDMsDoScuWOfp6F", sign_date, {
