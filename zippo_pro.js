@@ -2,7 +2,7 @@
 微信小程序 zippo会员中心
 
 使用类来实现的版本, 包含了简单的类继承
-  ck格式  zippoCookie = openid#session_key&openid#session_key
+
 cron: 24 7,19 * * *
 */
 const $ = new Env('zippo会员中心');
