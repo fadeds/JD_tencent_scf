@@ -36,11 +36,13 @@ body_lqjf = {
     "task_name" : '每日签到',
     "verifyCode" : ''
     }
-res_lqjf = requests.request("POST", url_lqjf, headers=headers_lqjf, data = json.dumps(body_lqjf))
 res_points = requests.request("GET", url, headers=headers_yh, data=payload)
+res_lqjf = requests.request("POST", url_lqjf, headers=headers_lqjf, data = json.dumps(body_lqjf))
 zh_json = res_points.json()
+
 points = zh_json['data']['Points']
 if points == {pointsbefore + 300}:
+# if res_lqjf.text.data == 'ok':
     print(f'签到成功，当前剩余积分：{points + 300}')
 else:
     print(f'签到失败，返回值：{res_lqjf.text}')
