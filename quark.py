@@ -35,7 +35,7 @@ import requests
 # os.environ['COOKIE_QUARK'] = ''
 
 try:  # 异常捕捉
-    from utils.notify import send  # 导入消息通知模块
+    from notify import send  # 导入消息通知模块
 except Exception as err:  # 异常捕捉
     print('%s\n❌加载通知服务失败~' % err)
 
